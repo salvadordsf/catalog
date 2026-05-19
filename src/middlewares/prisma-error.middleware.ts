@@ -1,6 +1,6 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { Response, Request, NextFunction } from "express";
 import { HttpResponse } from "../utils/http-response.util";
+import { Prisma } from "@prisma/client";
 
 export const prismaErrorHandler = (
   error: unknown,
@@ -8,7 +8,7 @@ export const prismaErrorHandler = (
   res: Response,
   next: NextFunction,
 ): void => {
-  if (error instanceof PrismaClientKnownRequestError) {
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
       case "P2025":
         HttpResponse.notFound(res, error);

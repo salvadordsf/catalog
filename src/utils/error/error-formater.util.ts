@@ -1,4 +1,4 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+import { Prisma } from "@prisma/client";
 import { ZodError, ZodIssue } from "zod/v3";
 
 export type ErrorCode =
@@ -47,7 +47,7 @@ export const errorFormater = (
   }
 
   // Prisma
-  if (error instanceof PrismaClientKnownRequestError) {
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
       case "P2002":
         return {
